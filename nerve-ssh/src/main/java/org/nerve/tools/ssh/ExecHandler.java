@@ -3,7 +3,7 @@ package org.nerve.tools.ssh;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import com.zeus.ssh.bean.SshInfo;
+import org.nerve.tools.ssh.bean.SshInfo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

@@ -2,9 +2,9 @@ package org.nerve.tools.ssh;
 
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
-import com.zeus.ssh.bean.RemoteBootEntity;
-import com.zeus.ssh.bean.SshInfo;
 import org.junit.Test;
+import org.nerve.tools.ssh.bean.RemoteBootEntity;
+import org.nerve.tools.ssh.bean.SshInfo;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

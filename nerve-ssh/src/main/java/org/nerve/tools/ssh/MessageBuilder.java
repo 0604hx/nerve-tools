@@ -1,6 +1,6 @@
 package org.nerve.tools.ssh;
 
-import com.zeus.ssh.bean.IMessageBuilder;
+import org.nerve.tools.ssh.bean.IMessageBuilder;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
  * com.zeus.ssh
  * Created by zengxm on 2016/2/23 0023.
  */
-public class MessageBuilder implements IMessageBuilder{
+public class MessageBuilder implements IMessageBuilder {
 	public static final String F="yyyy-MM-dd HH:mm:ss.SSS ";
 
 	private List<String> messages;

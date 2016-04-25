@@ -1,9 +1,9 @@
 package org.nerve.tools.ssh;
 
 import com.jcraft.jsch.*;
-import com.zeus.ssh.bean.SshInfo;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.nerve.tools.ssh.bean.SshInfo;
 
 import java.io.File;
 import java.io.IOException;

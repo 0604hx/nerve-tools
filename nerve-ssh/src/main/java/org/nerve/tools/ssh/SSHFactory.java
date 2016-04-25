@@ -2,12 +2,12 @@ package org.nerve.tools.ssh;
 
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
-import com.zeus.ssh.bean.IMessageBuilder;
-import com.zeus.ssh.bean.PortLink;
-import com.zeus.ssh.bean.RemoteBootEntity;
-import com.zeus.ssh.bean.SshInfo;
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.nerve.tools.ssh.bean.IMessageBuilder;
+import org.nerve.tools.ssh.bean.PortLink;
+import org.nerve.tools.ssh.bean.RemoteBootEntity;
+import org.nerve.tools.ssh.bean.SshInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -191,6 +191,7 @@ public final class SSHFactory {
 	 * @param startupCmd
 	 * @param execTimeout
 	 */
+	@Deprecated
 	public static void uploadAndRunJarOnRemoteHost(
 			SshInfo transitInfo,
 			SshInfo remoteInfo,

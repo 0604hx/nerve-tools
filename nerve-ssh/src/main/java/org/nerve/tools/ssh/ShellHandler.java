@@ -2,7 +2,6 @@ package org.nerve.tools.ssh;
 
 import com.jcraft.jsch.ChannelShell;
 import com.jcraft.jsch.Session;
-import com.zeus.ssh.bean.SshInfo;
 import expect4j.Closure;
 import expect4j.Expect4j;
 import expect4j.ExpectState;
@@ -10,6 +9,7 @@ import expect4j.matches.EofMatch;
 import expect4j.matches.Match;
 import expect4j.matches.RegExpMatch;
 import expect4j.matches.TimeoutMatch;
+import org.nerve.tools.ssh.bean.SshInfo;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,7 @@ package org.nerve.tools.ssh;
 
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import com.zeus.ssh.bean.SshInfo;
+import org.nerve.tools.ssh.bean.SshInfo;
 
 /**
  * 用于处理端口转发的类
