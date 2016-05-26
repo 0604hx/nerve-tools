@@ -15,6 +15,12 @@ import java.util.List;
  * 4.是否覆盖            replace
  * 5.上传完成后执行的命令 afterCommand
  *
+ * -----------------------------------------------------------------
+ * modify logs
+ * -------------------------------
+ * 2016年4月26日10:58:38   增加clean属性，为true时清空远程目录
+ *
+ *
  * com.zeus.ssh.bean
  * Created by zengxm on 2016/2/23 0023.
  */
@@ -26,6 +32,16 @@ public class RemoteBootEntity implements Serializable{
 	private boolean replace;
 	private String remotePath;
 	private boolean checkJava;      //是否检查java环境
+	private boolean clean;          //是否清空远程目录
+
+	public boolean isClean() {
+		return clean;
+	}
+
+	public RemoteBootEntity setClean(boolean clean) {
+		this.clean = clean;
+		return this;
+	}
 
 	public String getStartupCommand() {
 		return startupCommand;

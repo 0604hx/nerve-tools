@@ -368,43 +368,55 @@ public final class SSHFactory {
 				mb.put("[返回内容]\n"+shellHandler.getLastResponse());
 				log.info("执行{}命令，返回值：\n{}", cmd, shellHandler.getLastResponse());
 			}
-			/*
-			上传文件
-			 */
+
 			sftpHandler = new SftpHandler(shellHandler.getSession());
-
-			log.info("通过SSH隧道登录到主机{}:{}", ssh.getHost(), ssh.getPort());
-
-			//判断远程目录是否存在
-			if(!sftpHandler.isExist(rbe.getRemotePath())){
-				mb.put("远程目录%1$s不存在，现在尝试创建...", rbe.getRemotePath());
-				log.info(mb.getLast());
-
+			if(rbe.isClean()){
 				try{
-					sftpHandler.mkdir(rbe.getRemotePath());
-
-					mb.put("目录创建成功");
+					sftpHandler.rmDir(rbe.getRemotePath());
 				}catch (Exception e){
-					mb.put("创建目录时出错："+e.getMessage());
+					mb.put("清空远程目录时出错：" + e.getMessage());
 					log.error(mb.getLast());
 
 					throw e;
 				}
 			}
+			/*
+			上传文件
+			 */
+			if(rbe.getFileList()!=null && rbe.getFileList().size()>0) {
+				log.info("通过SSH隧道登录到主机{}:{}", ssh.getHost(), ssh.getPort());
 
-			//上传文件
-			for(File file:rbe.getFileList()){
-				String name=file.getName();
-				String remoteP=rbe.getRemotePath(name);
-				//先判断文件是否存在，并判断是否需要覆盖
-				if(rbe.isReplace() || !sftpHandler.isExist(remoteP)){
-					mb.put("开始上传本地文件%1$s到远程%2$s", file.getAbsoluteFile(), remoteP);
+				//判断远程目录是否存在
+				if (!sftpHandler.isExist(rbe.getRemotePath())) {
+					mb.put("远程目录%1$s不存在，现在尝试创建...", rbe.getRemotePath());
 					log.info(mb.getLast());
-					//执行文件上传
-					sftpHandler.upload(file, remoteP);
 
-					mb.put("文件上传完成");
-					log.info(mb.getLast());
+					try {
+						sftpHandler.mkdir(rbe.getRemotePath());
+
+						mb.put("目录创建成功");
+					} catch (Exception e) {
+						mb.put("创建目录时出错：" + e.getMessage());
+						log.error(mb.getLast());
+
+						throw e;
+					}
+				}
+
+				//上传文件
+				for (File file : rbe.getFileList()) {
+					String name = file.getName();
+					String remoteP = rbe.getRemotePath(name);
+					//先判断文件是否存在，并判断是否需要覆盖
+					if (rbe.isReplace() || !sftpHandler.isExist(remoteP)) {
+						mb.put("开始上传本地文件%1$s到远程%2$s", file.getAbsoluteFile(), remoteP);
+						log.info(mb.getLast());
+						//执行文件上传
+						sftpHandler.upload(file, remoteP);
+
+						mb.put("文件上传完成");
+						log.info(mb.getLast());
+					}
 				}
 			}
 

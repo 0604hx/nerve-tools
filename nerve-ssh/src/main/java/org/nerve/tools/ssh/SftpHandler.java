@@ -89,6 +89,26 @@ public class SftpHandler extends AbstractSessionHandler {
 		//getChannel().chmod(777,path);
 	}
 
+	/**
+	 * 删除指定路径的文件夹
+	 * @param path
+	 * @throws JSchException
+	 * @throws SftpException
+	 */
+	public void rmDir(String path) throws JSchException, SftpException {
+		getChannel().rmdir(path);
+	}
+
+	/**
+	 * 删除指定路径的文件
+	 * @param path
+	 * @throws JSchException
+	 * @throws SftpException
+	 */
+	public void rm(String path) throws JSchException, SftpException {
+		getChannel().rm(path);
+	}
+
 	@Override
 	public void disconnect() {
 		super.disconnect();

@@ -10,6 +10,7 @@
     <version>1.2</version>
     <modules>
         <module>nerve-ssh</module>
+        <module>ip2domain</module>
     </modules>
 
 
