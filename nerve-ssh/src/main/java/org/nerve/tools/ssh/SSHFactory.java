@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 用于保存&初始化SSH通讯隧道
+ * 用于保存以及初始化SSH通讯隧道
  * com.zeus.ssh
  * Created by zengxm on 2015/12/10 0010.
  */
@@ -27,6 +27,7 @@ public final class SSHFactory {
 	private static Logger log = LoggerFactory.getLogger(SSHFactory.class);
 
 	private static Map<Integer, PortForwardingHandler> portForwardingMap = new ConcurrentHashMap<>();
+
 
 	/**
 	 * 开通远程到本地的端口映射
@@ -39,9 +40,11 @@ public final class SSHFactory {
 	 * 注意：
 	 *  1.默认情况下，端口2 = remotePort，端口1 = remotePort - 1;
 	 *  2.如果需要自己指定两个端口，请使用 @openRemotePortToLocal(SshInfo,int, int, int)
-	 * @param remoteSshInfo
-	 * @param localPort
-	 * @return
+	 * @param remoteSshInfo     远程主机连接信息
+	 * @param remotePort        远程端口
+	 * @param localPort         本地端口
+	 * @return                  成功映射后的本地端口（如果成功的话）
+	 * @throws JSchException    for operation failed
 	 */
 	public static int openRemotePortToLocal(
 			SshInfo remoteSshInfo,
@@ -50,14 +53,6 @@ public final class SSHFactory {
 		return openRemotePortToLocal(remoteSshInfo, remotePort-1,remotePort, localPort);
 	}
 
-	/**
-	 * @param remoteSshInfo
-	 * @param remotePort1
-	 * @param remotePort2
-	 * @param localPort
-	 * @return
-	 * @throws JSchException
-	 */
 	public synchronized static int openRemotePortToLocal(
 			SshInfo remoteSshInfo,
 			int remotePort1,
@@ -87,9 +82,6 @@ public final class SSHFactory {
 		return remotePort2;
 	}
 
-	/**
-	 * @param localPort
-	 */
 	public static void stopRemotePortForwarding(int localPort) throws JSchException {
 		PortForwardingHandler handler = portForwardingMap.get(localPort);
 		if(handler != null) {
@@ -97,12 +89,15 @@ public final class SSHFactory {
 		}
 	}
 
+
 	/**
 	 * 开通本地到remoteHost的SSH通道
-	 * @param sshInfo       中转机子的ssh连接信息
-	 * @param localPort     本地端口
-	 * @param remoteHost    想要连接的远程机子
-	 * @param remotePort    想要连接的远程端口
+	 * @param sshInfo           中转机子的ssh连接信息
+	 * @param localPort         本地端口
+	 * @param remoteHost        想要连接的远程机子
+	 * @param remotePort        想要连接的远程端口
+	 * @return                  开通映射后的端口
+	 * @throws JSchException    for operation failed
 	 */
 	public static int openLocalPortToRemote(
 			SshInfo sshInfo,
@@ -127,8 +122,8 @@ public final class SSHFactory {
 
 	/**
 	 * 关闭本地的端口映射
-	 * @param port
-	 * @throws JSchException
+	 * @param port              本地端口
+	 * @throws JSchException    for operation failed
 	 */
 	public synchronized static void stopLocalPortForwarding(int port) throws JSchException {
 		PortForwardingHandler handler = portForwardingMap.remove(port);
@@ -139,8 +134,8 @@ public final class SSHFactory {
 
 	/**
 	 * 检查某个端口是否在使用中
-	 * @param port
-	 * @return
+	 * @param port      端口
+	 * @return          if the special port is using
 	 */
 	public static boolean isLocalPortUsing(int port) {
 		PortForwardingHandler handler = portForwardingMap.get(port);
@@ -173,6 +168,7 @@ public final class SSHFactory {
 		}
 	}
 
+
 	/**
 	 * 上传jar包到远程主机，并运行之
 	 * 步骤：
@@ -184,12 +180,17 @@ public final class SSHFactory {
 	 * 5.上成功后，执行startupCmd命令
 	 * 6.关闭SSH隧道
 	 *
-	 * @param remoteInfo
-	 * @param jarPath
-	 * @param remotePath
-	 * @param replaceOnExist
-	 * @param startupCmd
-	 * @param execTimeout
+	 * @param transitInfo           中转机信息
+	 * @param remoteInfo            远程主机信息
+	 * @param jarPath               jar包路径（本地）
+	 * @param remotePath            远程存放目录
+	 * @param replaceOnExist        是否替换（如果远程路径已经存在）
+	 * @param startupCmd            启动命令
+	 * @param execTimeout           启动命令执行后，等待的时间
+	 * @throws JSchException        for operation failed
+	 * @throws IOException          for io failed
+	 * @throws SftpException        for sftp failed
+	 * @throws InterruptedException for thread failed
 	 */
 	@Deprecated
 	public static void uploadAndRunJarOnRemoteHost(
@@ -296,14 +297,15 @@ public final class SSHFactory {
 
 	/**
 	 * 在指定的远程主机中执行RemoteBootEntity
-	 * @param transitInfo
-	 * @param ssh
-	 * @param rbe
-	 * @param execTimeout
-	 * @throws JSchException
-	 * @throws IOException
-	 * @throws SftpException
-	 * @throws InterruptedException
+	 * @param mb                    IMessageBuilder对象，用于log
+	 * @param transitInfo           中转机（如果为空，则不使用中转机）
+	 * @param ssh                   SSh连接信息（远程主机）
+	 * @param rbe                   RemoteBootEntity对象
+	 * @param execTimeout           启动命令执行后，等待的时间
+	 * @throws JSchException        for operation failed
+	 * @throws IOException          for io failed
+	 * @throws SftpException        for sftp failed
+	 * @throws InterruptedException for thread failed
 	 */
 	public static void execRemoteBooeEntity(
 			IMessageBuilder mb,
@@ -490,10 +492,6 @@ public final class SSHFactory {
 		}
 	}
 
-	/**
-	 * 获取本地与外部主机之间的端口关联
-	 * @return
-	 */
 	public static List<PortLink> getPortLinks(){
 		List<PortLink> links = new ArrayList<>();
 		portForwardingMap.forEach((k,v)->links.add(SerializationUtils.clone(v.getPortLink())));
@@ -503,9 +501,9 @@ public final class SSHFactory {
 	/**
 	 * 对SSH进行连接测试
 	 * @param transitInfo       中转机子，如果为空，则通过本地机子直接链接远程主机
-	 * @param remoteInfo
-	 * @return
-	 * @throws JSchException
+	 * @param remoteInfo        目标主机信息
+	 * @return                  是否可以成功连接
+	 * @throws JSchException    for operation failed
 	 */
 	public static synchronized boolean testForSSH(
 			SshInfo transitInfo,

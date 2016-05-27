@@ -54,8 +54,8 @@ public class RemoteBootEntity implements Serializable{
 
 	/**
 	 * 增加一条上传前的执行命令
-	 * @param cmds
-	 * @return
+	 * @param cmds      命令
+	 * @return          RemoteBootEntity
 	 */
 	public RemoteBootEntity addBeforeCommand(String... cmds){
 		if(beforeCommands==null)
@@ -132,8 +132,8 @@ public class RemoteBootEntity implements Serializable{
 
 	/**
 	 * 使用Linux文件分隔符
-	 * @param name
-	 * @return
+	 * @param name      文件名
+	 * @return          远程路径
 	 */
 	public String getRemotePath(String name){
 		return remotePath+"/"+name;

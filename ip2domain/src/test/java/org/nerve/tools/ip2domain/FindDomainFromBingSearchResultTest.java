@@ -1,5 +1,6 @@
 package org.nerve.tools.ip2domain;
 
+import org.jsoup.Jsoup;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -78,5 +79,11 @@ public class FindDomainFromBingSearchResultTest{
 					System.err.println(r+" not found");
 			}
 		});
+	}
+
+	@Test
+	public void jsoup(){
+		String html="在<a href='sasasasasasasasasa'>xxxx医院</a>工作";
+		System.out.println(Jsoup.parse(html).text());
 	}
 }

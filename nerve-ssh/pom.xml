@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.nerve.tools</groupId>
+    <groupId>com.github.0604hx</groupId>
     <artifactId>nerve-ssh</artifactId>
     <version>1.3.2</version>
 
@@ -15,12 +15,36 @@
         <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
     </properties>
 
+    <name>${project.groupId}:${project.artifactId}</name>
+    <url>https://github.com/0604hx/nerve-tools</url>
     <description>
         2016年4月25日17:12:24
             封装基于SSH的端口转发、文件上传和下载、执行shell等功能
         2016年5月13日11:49:57
             打包时exclude log4j.properties
     </description>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>0604hx</name>
+            <email>zxingming@foxmail.com</email>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git@github.com:0604hx/nerve-tools.git</connection>
+        <developerConnection>scm:git:git@github.com:0604hx/nerve-tools.git</developerConnection>
+        <url>git@github.com:0604hx/nerve-tools.git</url>
+    </scm>
 
     <dependencies>
         <dependency>
@@ -49,17 +73,30 @@
         </dependency>
     </dependencies>
 
+    <!--<distributionManagement>-->
+        <!--<repository>-->
+            <!--<id>jp-releases</id>-->
+            <!--<name>jp Release Repository</name>-->
+            <!--<url>http://192.168.1.131:8081/content/repositories/releases/</url>-->
+        <!--</repository>-->
+        <!--<snapshotRepository>-->
+            <!--<id>jp-snapshots</id>-->
+            <!--<name>Nexus Snapshot Repository</name>-->
+            <!--<url>http://192.168.1.131:8081/nexus/content/repositories/snapshots/</url>-->
+        <!--</snapshotRepository>-->
+    <!--</distributionManagement>-->
+
+    <!--添加发布信息-->
     <distributionManagement>
-        <repository>
-            <id>jp-releases</id>
-            <name>jp Release Repository</name>
-            <url>http://192.168.1.131:8081/content/repositories/releases/</url>
-        </repository>
         <snapshotRepository>
-            <id>jp-snapshots</id>
-            <name>Nexus Snapshot Repository</name>
-            <url>http://192.168.1.131:8081/nexus/content/repositories/snapshots/</url>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <name>Maven Central Staging Repository</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
     </distributionManagement>
 
     <build>
@@ -71,5 +108,66 @@
                 </excludes>
             </resource>
         </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.3</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+                <!--<configuration>-->
+                    <!--<destDir>javadoc</destDir>-->
+                    <!--<excludes>-->
+                        <!--<exclude>**/Test*.java</exclude>-->
+                    <!--</excludes>-->
+                <!--</configuration>-->
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>

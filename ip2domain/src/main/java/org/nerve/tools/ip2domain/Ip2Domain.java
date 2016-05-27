@@ -8,15 +8,15 @@ import java.util.Set;
 public interface Ip2Domain {
 	/**
 	 * 根据ip尝试去查找匹配到的域名
-	 * @param ip
-	 * @return
+	 * @param ip        需要解析的IP
+	 * @return          可能与ip匹配的域名信息
 	 */
 	Set<String> lookup(String ip);
 
 	/**
 	 * 设置代理
-	 * @param host
-	 * @param port
+	 * @param host      代理主机名
+	 * @param port      代理端口
 	 */
 	void setProxy(String host, int port);
 }

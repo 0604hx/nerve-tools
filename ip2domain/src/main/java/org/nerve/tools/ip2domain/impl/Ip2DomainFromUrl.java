@@ -22,17 +22,17 @@ public abstract class Ip2DomainFromUrl extends AbstractHttpIp2Domain {
 
 	public Ip2DomainFromUrl() {
 		try{
-			urlRegs= Files.readAllLines(DirUtil.getPath("regs.txt"));
+			urlRegs= Files.readAllLines(DirUtil.getPath("domain-regs.txt"));
 			System.out.println(urlRegs.size()+" regulars loaded!");
 		}catch (Exception e){
-			System.err.println("unable load regs.txt. Please create it!");
+			System.err.println("unable load domain-regs.txt. Please create it!");
 		}
 	}
 
 	/**
 	 * 使用正则表达式匹配域名
-	 * @param urls
-	 * @return
+	 * @param urls      包含了搜索结果的地址集合
+	 * @return          处理后的结果
 	 */
 	protected Set<String> findDomainsFromUrls(Set<String> urls){
 		Set<String> domains=new HashSet<>();

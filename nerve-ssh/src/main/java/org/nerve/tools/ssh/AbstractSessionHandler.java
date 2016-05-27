@@ -31,8 +31,10 @@ public abstract class AbstractSessionHandler {
 		this.session = session;
 	}
 
+
 	/**
 	 * 使用ssh连接到host
+	 * @throws JSchException    if connect failed
 	 */
 	protected void connect() throws JSchException {
 		if(checkSessionAvailable()){
@@ -55,7 +57,7 @@ public abstract class AbstractSessionHandler {
 
 	/**
 	 * 检查session是否可用
-	 * @return
+	 * @return true if session is usable
 	 */
 	public boolean checkSessionAvailable(){
 		return session != null && session.isConnected() ;
@@ -69,15 +71,12 @@ public abstract class AbstractSessionHandler {
 
 	/**
 	 * 判断是否已经连接
-	 * @return
+	 * @return true if the session is not null and connected
 	 */
 	public boolean isConnected(){
 		return session == null?false:session.isConnected();
 	}
 
-	/**
-	 *
-	 */
 	public void disconnect(){
 		if(session != null)
 			session.disconnect();

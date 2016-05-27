@@ -32,8 +32,8 @@ public abstract class AbstractIp2Domain implements Ip2Domain {
 	}
 
 	/**
-	 * @param domains
-	 * @return
+	 * @param domains   域名结果集合
+	 * @return          处理后的结果（根据removeIP来决定是否去除IP）
 	 */
 	protected Set<String> dealWithResults(Set<String> domains){
 		if(removeIP){

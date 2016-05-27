@@ -37,8 +37,11 @@ public class SftpHandler extends AbstractSessionHandler {
 
 	/**
 	 * 将指定内容写入远程文件中
-	 * @param content
-	 * @param remotePath
+	 * @param content           带写入的文件内容
+	 * @param remotePath        远程路径
+	 * @throws JSchException    for operation failed
+	 * @throws SftpException    for sftp failed
+	 * @throws IOException      for IO exception
 	 */
 	public void writeContentTo(CharSequence content, String remotePath) throws JSchException, SftpException, IOException {
 		OutputStream outputStream = getChannel().put(remotePath);
@@ -47,11 +50,11 @@ public class SftpHandler extends AbstractSessionHandler {
 
 	/**
 	 * 下载远程文件到本地
-	 * @param remotePath
-	 * @param localPath
-	 * @throws JSchException
-	 * @throws IOException
-	 * @throws SftpException
+	 * @param remotePath        远程文件路径
+	 * @param localPath         本地保存路径
+	 * @throws JSchException    for operation failed
+	 * @throws IOException      for sftp failed
+	 * @throws SftpException    for IO exception
 	 */
 	public void download(String remotePath, String localPath) throws JSchException, IOException, SftpException{
 		download(remotePath, new File(localPath));
@@ -63,10 +66,10 @@ public class SftpHandler extends AbstractSessionHandler {
 
 	/**
 	 * 判断远程主机指定路径是否存在（文件或者目录）
-	 * @param path
-	 * @return
-	 * @throws JSchException
-	 * @throws SftpException
+	 * @param path  远程路径
+	 * @return      true if remote path is exist
+	 * @throws JSchException    for operation failed
+	 * @throws SftpException    for sftp failed
 	 */
 	public boolean isExist(String path) throws JSchException, SftpException {
 		try{
@@ -80,30 +83,24 @@ public class SftpHandler extends AbstractSessionHandler {
 
 	/**
 	 * 创建目录，同时赋予775权限
-	 * @param path
-	 * @throws JSchException
-	 * @throws SftpException
+	 * @param path      远程目录
+	 * @throws JSchException    for operation failed
+	 * @throws SftpException    for sftp failed
 	 */
 	public void mkdir(String path) throws JSchException, SftpException {
 		getChannel().mkdir(path);
 		//getChannel().chmod(777,path);
 	}
 
-	/**
-	 * 删除指定路径的文件夹
-	 * @param path
-	 * @throws JSchException
-	 * @throws SftpException
-	 */
 	public void rmDir(String path) throws JSchException, SftpException {
 		getChannel().rmdir(path);
 	}
 
 	/**
 	 * 删除指定路径的文件
-	 * @param path
-	 * @throws JSchException
-	 * @throws SftpException
+	 * @param path          远程目录
+	 * @throws JSchException    for operation failed
+	 * @throws SftpException    for sftp failed
 	 */
 	public void rm(String path) throws JSchException, SftpException {
 		getChannel().rm(path);

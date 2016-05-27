@@ -22,6 +22,8 @@ public class Ip2DomainByBingSearchApi extends Ip2DomainFromUrl {
 
 	@Override
 	public Set<String> lookup(String ip) {
+		if(accountKey==null||accountKey.length()==0)
+			throw new IllegalArgumentException("your Bing Search accountKey must not be empty!");
 		final String bingUrlPattern = "https://api.datamarket.azure.com/Bing/Search/Web?Query=%%27%s%%27&$format=JSON";
 
 		final String bingUrl = String.format(bingUrlPattern, ip);

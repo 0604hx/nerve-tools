@@ -25,11 +25,11 @@ public class PortForwardingHandler extends AbstractSessionHandler{
 	/**
 	 * 开启本地端口映射
 	 * 成功后，如果访问 localhost:{localPort} 那么，请求将通过SSH隧道转发到 remoteHost:remotePort
-	 *
 	 * @param localPort     本地端口
-	 * @param remoteHost    映射的目标主机
-	 * @param remotePort    映射的目标主机端口
-	 * @return
+	 * @param remoteHost    远程主机
+	 * @param remotePort    远程端口
+	 * @return              打开的本地端口（如果成功的话）
+	 * @throws JSchException    for operation failed
 	 */
 	public int startLocalPortForwarding(int localPort, String remoteHost, int remotePort) throws JSchException {
 		Session s = getSession();
@@ -42,8 +42,8 @@ public class PortForwardingHandler extends AbstractSessionHandler{
 
 	/**
 	 * 停止本地端口转发
-	 * @param port
-	 * @return
+	 * @param port      想要关闭的端口
+	 * @throws JSchException    for operation failed
 	 */
 	public void stopLocalPortForwarding(int port) throws JSchException {
 		if(port <=0){
@@ -63,10 +63,10 @@ public class PortForwardingHandler extends AbstractSessionHandler{
 	/**
 	 * 开启远程端口映射
 	 * 成功后，在远程主机访问 localhost:remotePort 或者 127.0.0.1:remotePort 时，请求都会转发到 host:localhostPort
-	 * @param remotePort
-	 * @param host
-	 * @param localPort
-	 * @throws JSchException
+	 * @param remotePort        远程端口
+	 * @param host              远程主机地址
+	 * @param localPort         绑定的本地端口
+	 * @throws JSchException    for operation failed
 	 */
 	public int startRemotePortForwarding(int remotePort, String host, int localPort) throws JSchException {
 		Session s = getSession();
@@ -82,8 +82,8 @@ public class PortForwardingHandler extends AbstractSessionHandler{
 
 	/**
 	 * 停止远程端口转发
-	 * @param port
-	 * @throws JSchException
+	 * @param port      远程端口
+	 * @throws JSchException    for operation failed
 	 */
 	public void stopRemotePortForwarding(int port) throws JSchException {
 		if(port <=0){

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.nerve.tools</groupId>
+    <groupId>com.github.0604hx</groupId>
     <artifactId>nerve-tools</artifactId>
     <packaging>pom</packaging>
     <version>1.2</version>

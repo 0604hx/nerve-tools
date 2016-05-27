@@ -162,8 +162,8 @@ public class ShellHandler extends AbstractSessionHandler {
 
 	/**
 	 * 执行命令，只有全部都执行成功后，才返回true
-	 * @param commands
-	 * @return
+	 * @param commands      待执行的命令
+	 * @return              true if all commands is done
 	 */
 	public boolean exec(String... commands){
 		//如果expect返回为0，说明登入没有成功

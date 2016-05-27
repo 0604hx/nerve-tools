@@ -54,9 +54,9 @@ public abstract class AbstractHttpIp2Domain extends AbstractIp2Domain {
 
 	/**
 	 *
-	 * @param urlAddr
-	 * @return
-	 * @throws IOException
+	 * @param urlAddr           请求地址
+	 * @return                  connection对象
+	 * @throws IOException      for io failed
 	 */
 	protected URLConnection getConnection(String urlAddr) throws IOException {
 		final URL url = new URL(urlAddr);
@@ -71,9 +71,9 @@ public abstract class AbstractHttpIp2Domain extends AbstractIp2Domain {
 
 	/**
 	 * 获取http结果
-	 * @param url
-	 * @param consumer
-	 * @throws IOException
+	 * @param url               请求地址
+	 * @param consumer          后续的处理
+	 * @throws IOException      for io failed
 	 */
 	protected void getResponse(String url,Consumer<String> consumer) throws IOException {
 		final URLConnection connection = getConnection(url);
@@ -103,7 +103,7 @@ public abstract class AbstractHttpIp2Domain extends AbstractIp2Domain {
 
 	/**
 	 *
-	 * @param connection
+	 * @param connection    创建的connection对象
 	 */
 	protected void onConnectionOpen(URLConnection connection){
 
