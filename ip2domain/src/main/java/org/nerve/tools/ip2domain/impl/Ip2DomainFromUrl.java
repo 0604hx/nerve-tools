@@ -3,9 +3,7 @@ package org.nerve.tools.ip2domain.impl;
 import org.nerve.tools.ip2domain.DirUtil;
 
 import java.nio.file.Files;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,12 +19,33 @@ public abstract class Ip2DomainFromUrl extends AbstractHttpIp2Domain {
 	protected List<String> urlRegs;
 
 	public Ip2DomainFromUrl() {
-		try{
-			urlRegs= Files.readAllLines(DirUtil.getPath("domain-regs.txt"));
-			System.out.println(urlRegs.size()+" regulars loaded!");
-		}catch (Exception e){
-			System.err.println("unable load domain-regs.txt. Please create it!");
-		}
+		initUrlRegs();
+	}
+
+	protected void initUrlRegs(){
+		urlRegs=new ArrayList<>();
+		urlRegs.add("http://www.seoreporttools.com/stats/([a-z0-9-]+\\.[a-z0-9-]+(\\.[a-z0-9-]+){0,2})");
+		urlRegs.add("http://www.ipaddresslocation.org/ip-address-locator.php?lookup=([a-z0-9-]+\\.[a-z0-9-]+(\\.[a-z0-9-]+){0,2})");
+		urlRegs.add("http://whoissoft.com/([a-z0-9-]+\\.[a-z0-9-]+(\\.[a-z0-9-]+){0,2})");
+		urlRegs.add("http://www.ip-tracker.org/blacklist-check.php?ip=([a-z0-9-]+\\.[a-z0-9-]+(\\.[a-z0-9-]+){0,2})");
+		urlRegs.add("https://www.robtex.net/?_escaped_fragment_=dns=([a-z0-9-]+\\.[a-z0-9-]+(\\.[a-z0-9-]+){0,2})");
+		urlRegs.add("https://lzone.de/websites/history/([a-z0-9-]+\\.[a-z0-9-]+(\\.[a-z0-9-]+){0,2})");
+		urlRegs.add("https://www.robtex.org/#!dns=([a-z0-9-]+\\.[a-z0-9-]+(\\.[a-z0-9-]+){0,2})");
+		urlRegs.add("http://www.domaincrawler.com/([a-z0-9-]+\\.[a-z0-9-]+(\\.[a-z0-9-]+){0,2})");
+		urlRegs.add("https://www.robtex.com/#!dns=([a-z0-9-]+\\.[a-z0-9-]+(\\.[a-z0-9-]+){0,2})");
+		urlRegs.add("http://mostpopularwebsites.net/([a-z0-9-]+\\.[a-z0-9-]+(\\.[a-z0-9-]+){0,2})");
+		urlRegs.add("http://ip.911cha.com/([a-z0-9-]+\\.[a-z0-9-]+(\\.[a-z0-9-]+){0,2}).html");
+		urlRegs.add("http://webvaluecheck.com/([a-z0-9-]+\\.[a-z0-9-]+(\\.[a-z0-9-]+){0,2})");
+		urlRegs.add("http://hao.yaozui.com/review/([a-z0-9-]+\\.[a-z0-9-]+(\\.[a-z0-9-]+){0,2})");
+		urlRegs.add("http://www.114best.com/ip/114.aspx?w=([a-z0-9-]+\\.[a-z0-9-]+(\\.[a-z0-9-]+){0,2})");
+	}
+
+	/**
+	 * 增加新的url解析正则
+	 * @param rs    用于抽取domain的正则表达式
+	 */
+	public void addUrlRegs(String... rs){
+		urlRegs.addAll(Arrays.asList(rs));
 	}
 
 	/**

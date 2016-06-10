@@ -23,26 +23,46 @@ import java.util.Set;
  * Created by zengxm on 2016/5/25.
  */
 public class Ip2DomainByGlobalBingSearch extends Ip2DomainFromUrl {
+	private String urlSelector="#b_results li h2 a";
 	protected static Map<String,String> cookies=new HashMap<>();
 	static {
 		cookies.put("_EDGE_S","mkt=en-us&ui=en-us&F=1&SID=0F884792FDDB6BAB12F64EB3FC076AAA");
 		cookies.put("_EDGE_V","1");
 	}
-	protected String searchUrl="http://global.bing.com/search?q=ip%%3A%s";
+	protected String searchUrl="http://global.bing.com/search?q=ip:%s";
 
 	@Override
 	public Set<String> lookup(String ip) {
+		if(urlSelector==null || urlSelector.length()==0)
+			throw new IllegalArgumentException("urlSelector must be setup!see @setUrlSelector");
 		Set<String> urls=new HashSet<>();
 		try{
 			getResponse(String.format(searchUrl, ip), response->{
 				Document document=Jsoup.parse(response);
-				Elements elements=document.select("#b_results li h2 a");
+				Elements elements=document.select(urlSelector);
 				elements.forEach(e-> urls.add(e.attr("href")+" "+e.text()));
 			});
 		}catch (Exception e){
 			e.printStackTrace();
 		}
 		return findDomainsFromUrls(urls);
+	}
+
+	public String getUrlSelector() {
+		return urlSelector;
+	}
+
+	/**
+	 * setup the url selector that location the results(html label A, for example:<a></a>).
+	 *
+	 * the default value is '#b_results li h2 a'.You can change it when bing search result page had been modified.
+	 *
+	 * @param urlSelector       selector similar to jQuery selector
+	 * @return                  Ip2DomainByGlobalBingSearch
+	 */
+	public Ip2DomainByGlobalBingSearch setUrlSelector(String urlSelector) {
+		this.urlSelector = urlSelector;
+		return this;
 	}
 
 	@Override

@@ -39,3 +39,5 @@ target/
 *.log
 /eml/
 /jpea-mail-receiver/doc/
+
+javaxt-core64.dll
