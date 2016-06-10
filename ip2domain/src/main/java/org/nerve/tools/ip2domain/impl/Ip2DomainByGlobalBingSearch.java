@@ -28,7 +28,7 @@ public class Ip2DomainByGlobalBingSearch extends Ip2DomainFromUrl {
 		cookies.put("_EDGE_S","mkt=en-us&ui=en-us&F=1&SID=0F884792FDDB6BAB12F64EB3FC076AAA");
 		cookies.put("_EDGE_V","1");
 	}
-	protected String searchUrl="http://global.bing.com/search?q=ip%%3A%s";
+	protected String searchUrl="http://global.bing.com/search?q=ip:%s";
 
 	@Override
 	public Set<String> lookup(String ip) {
