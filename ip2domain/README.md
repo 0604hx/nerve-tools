@@ -3,12 +3,6 @@
 
 更多介绍请看 _documents/README.md
 
-# LOGS
-## 1.2.1
-
-1. 修复无法获取IP对应的域名结果的BUG  2016年06月11日01:00:55
-
-
 # 如何使用？
 ``` java
 Ip2DomainByGlobalBingSearch api=new Ip2DomainByGlobalBingSearch();
