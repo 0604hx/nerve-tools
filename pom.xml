@@ -12,6 +12,8 @@
         <module>nerve-ssh</module>
         <module>ip2domain</module>
         <module>nerve-fs</module>
+        <module>nerve-utils</module>
+        <module>country2location</module>
     </modules>
 
 
