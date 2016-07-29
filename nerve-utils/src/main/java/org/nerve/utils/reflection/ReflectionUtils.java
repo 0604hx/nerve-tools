@@ -20,8 +20,6 @@ import java.util.List;
  * 反射工具类.
  *
  * 提供调用getter/setter方法, 访问私有变量, 调用私有方法, 获取泛型类型Class, 被AOP过的真实类等工具函数.
- * @author 尔演&Eryan eryanwcp@gmail.com
- * @date 2013-3-24 下午4:17:27 
  *
  */
 public class ReflectionUtils {
@@ -35,11 +33,9 @@ public class ReflectionUtils {
     /**
      * 调用Getter方法.
      *
-     * @param target
-     *            目标对象Object
-     * @param propertyName
-     *            属性字段名称
-     *
+     * @param target  目标对象Object
+     * @param propertyName 属性字段名称
+     * @param <T>   类型
      * @return Object
      */
     public static <T> T invokeGetter(Object target, String propertyName) {
@@ -49,17 +45,22 @@ public class ReflectionUtils {
     }
 
 
-    /**
+	/**
      * 调用Setter方法, 仅匹配方法名。
+     * @param obj           目标
+     * @param propertyName  属性名
+     * @param value         值
      */
     public static void invokeSetter(Object obj, String propertyName, Object value) {
         String setterMethodName = SETTER_PREFIX + StringUtils.capitalize(propertyName);
         invokeMethodByName(obj, setterMethodName, new Object[] { value });
     }
 
-    /**
-     * 调用Getter方法.
-     * 支持多级，如：对象名.对象名.方法
+	/**
+     * 调用Getter方法.支持多级，如：对象名.对象名.方法
+     * @param obj               目标
+     * @param propertyName      属性名
+     * @return                  属性值
      */
     public static Object invokeGetter2(Object obj, String propertyName) {
         Object object = obj;
@@ -70,9 +71,11 @@ public class ReflectionUtils {
         return object;
     }
 
-    /**
-     * 调用Setter方法, 仅匹配方法名。
-     * 支持多级，如：对象名.对象名.方法
+	/**
+     * 调用Setter方法, 仅匹配方法名。支持多级，如：对象名.对象名.方法
+     * @param obj           对象
+     * @param propertyName  属性名
+     * @param value         值
      */
     public static void invokeSetter2(Object obj, String propertyName, Object value) {
         Object object = obj;
@@ -95,7 +98,7 @@ public class ReflectionUtils {
      *            目标对象Object
      * @param fieldName
      *            字段名称
-     *
+     * @param <T>   类型
      * @return Object
      */
     public static <T> T getFieldValue(final Object target,
@@ -118,8 +121,11 @@ public class ReflectionUtils {
         return (T) result;
     }
 
-    /**
+	/**
      * 直接设置对象属性值, 无视private/protected修饰符, 不经过setter函数.
+     * @param obj           目标
+     * @param fieldName     字段名
+     * @param value         值
      */
     public static void setFieldValue(final Object obj, final String fieldName, final Object value) {
         Field field = getAccessibleField(obj, fieldName);
@@ -135,10 +141,15 @@ public class ReflectionUtils {
         }
     }
 
-    /**
+	/**
      * 直接调用对象方法, 无视private/protected修饰符.
      * 用于一次性调用的情况，否则应使用getAccessibleMethod()函数获得Method后反复调用.
      * 同时匹配方法名+参数类型，
+     * @param obj               目标
+     * @param methodName        方法名
+     * @param parameterTypes    参数类型
+     * @param args              参数
+     * @return                  object
      */
     public static Object invokeMethod(final Object obj, final String methodName, final Class<?>[] parameterTypes,
                                       final Object[] args) {
@@ -154,10 +165,14 @@ public class ReflectionUtils {
         }
     }
 
-    /**
-     * 直接调用对象方法, 无视private/protected修饰符，
+	/**
+	 * 直接调用对象方法, 无视private/protected修饰符，
      * 用于一次性调用的情况，否则应使用getAccessibleMethodByName()函数获得Method后反复调用.
      * 只匹配函数名，如果有多个同名函数调用第一个。
+     * @param obj           目标
+     * @param methodName    方法名
+     * @param args          参数
+     * @return              object
      */
     public static Object invokeMethodByName(final Object obj, final String methodName, final Object[] args) {
         Method method = getAccessibleMethodByName(obj, methodName);
@@ -172,10 +187,13 @@ public class ReflectionUtils {
         }
     }
 
-    /**
+	/**
      * 循环向上转型, 获取对象的DeclaredField, 并强制设置为可访问.
      *
      * 如向上转型到Object仍无法找到, 返回null.
+     * @param obj       目标
+     * @param fieldName 字段名
+     * @return          Field
      */
     public static Field getAccessibleField(final Object obj, final String fieldName) {
         Validate.notNull(obj, "object can't be null");
@@ -192,12 +210,16 @@ public class ReflectionUtils {
         return null;
     }
 
-    /**
+	/**
      * 循环向上转型, 获取对象的DeclaredMethod,并强制设置为可访问.
      * 如向上转型到Object仍无法找到, 返回null.
      * 匹配函数名+参数类型。
      *
      * 用于方法需要被多次调用的情况. 先使用本函数先取得Method,然后调用Method.invoke(Object obj, Object... args)
+     * @param obj               目标
+     * @param methodName        方法名
+     * @param parameterTypes    参数类型
+     * @return                  Method
      */
     public static Method getAccessibleMethod(final Object obj, final String methodName,
                                              final Class<?>... parameterTypes) {
@@ -216,12 +238,15 @@ public class ReflectionUtils {
         return null;
     }
 
-    /**
+	/**
      * 循环向上转型, 获取对象的DeclaredMethod,并强制设置为可访问.
      * 如向上转型到Object仍无法找到, 返回null.
      * 只匹配函数名。
      *
      * 用于方法需要被多次调用的情况. 先使用本函数先取得Method,然后调用Method.invoke(Object obj, Object... args)
+     * @param obj           目标
+     * @param methodName    方法名
+     * @return              Method
      */
     public static Method getAccessibleMethodByName(final Object obj, final String methodName) {
         Validate.notNull(obj, "object can't be null");
@@ -239,8 +264,9 @@ public class ReflectionUtils {
         return null;
     }
 
-    /**
+	/**
      * 改变private/protected的方法为public，尽量不调用实际改动的语句，避免JDK的SecurityManager抱怨。
+     * @param method    方法
      */
     public static void makeAccessible(Method method) {
         if ((!Modifier.isPublic(method.getModifiers()) || !Modifier.isPublic(method.getDeclaringClass().getModifiers()))
@@ -249,8 +275,9 @@ public class ReflectionUtils {
         }
     }
 
-    /**
+	/**
      * 改变private/protected的成员变量为public，尽量不调用实际改动的语句，避免JDK的SecurityManager抱怨。
+     * @param field 字段
      */
     public static void makeAccessible(Field field) {
         if ((!Modifier.isPublic(field.getModifiers()) || !Modifier.isPublic(field.getDeclaringClass().getModifiers()) || Modifier
@@ -263,9 +290,10 @@ public class ReflectionUtils {
      * 通过反射, 获得Class定义中声明的泛型参数的类型, 注意泛型必须定义在父类处
      * 如无法找到, 返回Object.class.
      * eg.
-     * public UserDao extends HibernateDao<User>
+     * public UserDao extends HibernateDao【User】
      *
      * @param clazz The class to introspect
+     *  @param <T>   类型
      * @return the first generic declaration, or Object.class if cannot be determined
      */
     public static <T> Class<T> getClassGenricType(final Class clazz) {
@@ -276,7 +304,7 @@ public class ReflectionUtils {
      * 通过反射, 获得Class定义中声明的父类的泛型参数的类型.
      * 如无法找到, 返回Object.class.
      *
-     * 如public UserDao extends HibernateDao<User,Long>
+     * 如public UserDao extends HibernateDao【User,Long】
      *
      * @param clazz clazz The class to introspect
      * @param index the Index of the generic ddeclaration,start from 0.
@@ -333,8 +361,10 @@ public class ReflectionUtils {
         return clazz;
     }
 
-    /**
+	/**
      * 将反射时的checked exception转换为unchecked exception.
+     * @param e     异常
+     * @return      RuntimeException
      */
     public static RuntimeException convertReflectionExceptionToUnchecked(Exception e) {
         if (e instanceof IllegalAccessException || e instanceof IllegalArgumentException
@@ -349,31 +379,11 @@ public class ReflectionUtils {
     }
 
 
-    /**
-     * 获取对象中的注解
-     *
-     * @param target
-     *            目标对象Object
-     * @param annotationClass
-     *            注解
-     *
-     * @return Object
-     */
     public static <T> T getAnnotation(Object target, Class annotationClass) {
         Assert.notNull(target, "target不能为空");
         return (T) getAnnotation(target.getClass(), annotationClass);
     }
 
-    /**
-     * 获取对象中的注解
-     *
-     * @param targetClass
-     *            目标对象Class
-     * @param annotationClass
-     *            注解类型Class
-     *
-     * @return Object
-     */
     public static <T extends Annotation> T getAnnotation(Class targetClass,
                                                          Class annotationClass) {
         Assert.notNull(targetClass, "targetClass不能为空");
@@ -393,7 +403,7 @@ public class ReflectionUtils {
      *            目标对象Object
      * @param annotationClass
      *            Annotation类型
-     *
+     * @param <T>   类型
      * @return {@link Annotation}
      */
     public static <T extends Annotation> List<T> getAnnotations(Object target,
@@ -402,16 +412,12 @@ public class ReflectionUtils {
         return getAnnotations(getTargetClass(target), annotationClass);
     }
 
-    /**
-     *
-     * 获取对象中的所有annotationClass注解
-     *
-     * @param targetClass
-     *            目标对象Class
-     * @param annotationClass
-     *            注解类型Class
-     *
-     * @return List
+	/**
+	 * 获取对象中的所有annotationClass注解
+     * @param targetClass       目标对象Class
+     * @param annotationClass   注解类型Class
+     * @param <T>               类型
+     * @return                  结果
      */
     public static <T extends Annotation> List<T> getAnnotations(
             Class targetClass, Class annotationClass) {
@@ -457,7 +463,7 @@ public class ReflectionUtils {
      *            field对象
      * @param annotationClass
      *            annotationClass注解
-     *
+     * @param <T>   类型
      * @return {@link Annotation}
      */
     public static <T extends Annotation> T getAnnotation(Field field,
@@ -480,7 +486,7 @@ public class ReflectionUtils {
      *            field对象数组
      * @param annotationClass
      *            annotationClass注解
-     *
+     * @param <T>   类型
      * @return List
      */
     public static <T extends Annotation> List<T> getAnnotations(Field[] fields,
@@ -510,7 +516,7 @@ public class ReflectionUtils {
      *            method对象
      * @param annotationClass
      *            annotationClass注解
-     *
+     * @param <T>   类型
      * @return {@link Annotation}
      */
     public static <T extends Annotation> T getAnnotation(Method method,
@@ -533,7 +539,7 @@ public class ReflectionUtils {
      *            method对象数组
      * @param annotationClass
      *            annotationClass注解
-     *
+     * @param <T>   类型
      * @return List
      */
     public static <T extends Annotation> List<T> getAnnotations(
@@ -563,7 +569,7 @@ public class ReflectionUtils {
      *            constructor对象
      * @param annotationClass
      *            annotationClass注解
-     *
+     * @param <T>   类型
      * @return {@link Annotation}
      */
     public static <T extends Annotation> T getAnnotation(
@@ -588,7 +594,7 @@ public class ReflectionUtils {
      *            constructor对象数组
      * @param annotationClass
      *            annotationClass注解
-     *
+     * @param <T>   类型
      * @return List
      */
     public static <T extends Annotation> List<T> getAnnotations(

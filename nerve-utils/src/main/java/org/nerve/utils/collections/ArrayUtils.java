@@ -10,15 +10,14 @@ import org.nerve.utils.ObjectUtils;
 
 /**
  * array工具类
- * @author 尔演&Eryan eryanwcp@gmail.com
- * @date   2012-1-9下午2:55:08
  */
 public class ArrayUtils {
 
     /**
      * 判断array是否为空或大小为0
      * 
-     * @param sourceArray
+     * @param sourceArray   数组
+     *                      @param <V>  类型
      * @return 若array为null或长度为0, 返回true; 否则返回false.
      * 
      * <pre>
@@ -40,12 +39,13 @@ public class ArrayUtils {
      * <li>若找到了value并且为第一个元素，isCircle为true时，返回数组最后一个元素；isCircle为false时，返回defaultValue</li>
      * </ul>
      * 
-     * @param <V>
+     * @param <V>           类型
      * @param sourceArray 源array
      * @param value 待查找值，若value为null同样适用，会查找第一个为null的值
      * @param defaultValue 默认返回值
      * @param isCircle 是否是圆
-     * @return
+     *                 @param <V>  类型
+     * @return  上一个元素（如果有的话）
      */
     public static <V> V getLast(V[] sourceArray, V value, V defaultValue, boolean isCircle) {
         if (isEmpty(sourceArray)) {
@@ -82,7 +82,8 @@ public class ArrayUtils {
      * @param value 待查找值，若value为null同样适用，会查找第一个为null的值
      * @param defaultValue 默认返回值
      * @param isCircle 是否是圆
-     * @return
+     *                 @param <V>  类型
+     * @return  下一个元素
      */
     public static <V> V getNext(V[] sourceArray, V value, V defaultValue, boolean isCircle) {
         if (isEmpty(sourceArray)) {

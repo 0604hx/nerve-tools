@@ -15,14 +15,13 @@ import java.util.Map.Entry;
 
 /**
  * map工具类，用于实现一些map的常用操作
- * @author 尔演&Eryan eryanwcp@gmail.com
- * @date   2012-1-9下午2:54:34
+ * date on 2012-1-9下午2:54:34
  */
 public class MapUtils {
 
     /**
      * 判断map是否为空或大小为0
-     * 
+     * @param sourceMap map
      * @return 若map为null或长度为0, 返回true; 否则返回false.
      * 
      * <pre>
@@ -38,9 +37,9 @@ public class MapUtils {
     /**
      * 向map中put key和value对，key必须非null，并且为非空字符串
      * 
-     * @param map
-     * @param key
-     * @param value
+     * @param map       map
+     * @param key       key
+     * @param value     vakye
      * @return 若put成功，返回true，否则返回false
      *         <ul>
      *         <li>若map为null，返回false</li>
@@ -65,9 +64,9 @@ public class MapUtils {
     /**
      * 向map中put字符串，该字符串必须非null，并且为非空字符串
      * 
-     * @param map
-     * @param key
-     * @param value
+     * @param map       map
+     * @param key       key
+     * @param value     value
      * @return 若put成功，返回true，否则返回false
      *         <ul>
      *         <li>若map为null，返回false</li>
@@ -95,10 +94,10 @@ public class MapUtils {
     /**
      * 向map中put字符串(value)，若字符串为null或者为空字符串，put默认值(defaultValue)
      * 
-     * @param map
-     * @param key
-     * @param value
-     * @param defaultValue
+     * @param map               map
+     * @param key               key
+     * @param value             value
+     * @param defaultValue      defaultValue
      * @return 若put成功，返回true，否则返回false
      *         <ul>
      *         <li>若map为null，返回false</li>
@@ -136,7 +135,7 @@ public class MapUtils {
      * @param <V>       泛型
      * @param map map
      * @param value value值
-     * @return
+     * @return String
      */
     public static <V> String getKeyByValue(Map<String, V> map, V value) {
         if (isEmpty(map)) {

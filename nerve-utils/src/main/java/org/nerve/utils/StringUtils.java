@@ -18,8 +18,6 @@ import java.util.regex.Pattern;
 
 /**
  * 字符串工具类，用于实现一些字符串的常用操作
- * @author 尔演&Eryan eryanwcp@gmail.com
- * @date   2012-1-9下午2:43:26
  */
 public class StringUtils extends org.apache.commons.lang3.StringUtils{
 
@@ -52,7 +50,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
     /**
      * 判断字符串是否为空或长度为0，或仅由空格组成
      *
-     * @param str
+     * @param str       待检测字符串
      * @return 若字符串为null或长度为0或仅由空格组成, 返回true; 否则返回false.
      *
      * <pre>
@@ -119,7 +117,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
      *
      * @param str 源字符串
      * @param defultReturn 默认出错返回
-     * @return
+     * @return  utf8编码后的字符串
      */
     public static String utf8Encode(String str, String defultReturn) {
         if (!isEmpty(str) && str.getBytes().length != str.length()) {
@@ -207,10 +205,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
     /**
      * 处理时间，用来显示状态更新时间
      *
-     * @param time
+     * @param time      时间戳
      * @return
      */
-    @SuppressWarnings("deprecation")
     public static String processTime(Long time) {
         long oneDay = 24 * 60 * 60 * 1000;
         Date now = new Date();
@@ -454,8 +451,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
     /**
      * 比较两个String
      *
-     * @param actual
-     * @param expected
+     * @param actual        实际值
+     * @param expected      预期值
      * @return
      *         <ul>
      *         <li>若两个字符串都为null，则返回true</li>
@@ -474,7 +471,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
      * @param keyAndValueSeparator 键值对中key和value分隔符
      * @param valueEntitySeparator 键值对中两个entity分隔符
      * @param keyOrValueQuote 键值对中key或者value的引用号
-     * @return
+     * @return      Map
      * @see
      *      <ul>
      *      <li>parseKeyAndValueToMap("key1:value1,key2,value2", ":", ",")={(key1, value1), (key2, value2)}</li>
@@ -521,10 +518,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
      * 将key和value键值对转换成map，结果会忽略key和value中的空格，忽略为空的key
      *
      * @param source key和value键值对
-     * @return
-     * @see
-     *      <ul>
-     *      </ul>
+     * @return  Map
      */
     public static Map<String, String> parseKeyAndValueToMap(String source) {
         return parseKeyAndValueToMap(source, defaultKeyAndValueSeparator, defaultValueEntitySeparator,
@@ -536,7 +530,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
      *
      * @param source 原字符串
      * @param symbol 符号
-     * @return
+     * @return  String
      */
     public static String RemoveBothSideSymbol(String source, String symbol) {
         if (isEmpty(source) || isEmpty(symbol)) {
@@ -557,7 +551,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
      * 字符串匹配(仅支持"*"匹配).
      * @param pattern 模板
      * @param str 要验证的字符串
-     * @return
+     * @return  Boolean
      */
     public static boolean simpleWildcardMatch(String pattern, String str) {
         return wildcardMatch(pattern, str, "*");
@@ -568,7 +562,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
      * @param pattern   模板
      * @param str   要验证的字符串
      * @param wildcard 通配符
-     * @return
+     * @return  Boolean
      */
     public static boolean wildcardMatch(String pattern, String str, String wildcard) {
         if (StringUtils.isEmpty(pattern) || StringUtils.isEmpty(str)) {
@@ -609,8 +603,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
 
     /**
      * 替换掉HTML标签方法
-     * @param html
-     * @return
+     * @param html  html代码
+     * @return      替换后的文本
      */
     public static String replaceHtml(String html) {
         if (isBlank(html)){
@@ -627,7 +621,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
      * 缩略字符串（不区分中英文字符）
      * @param str 目标字符串
      * @param length 截取长度
-     * @return
+     * @return      缩略后的字符串
      */
     public static String abbr(String str, int length) {
         if (str == null) {
@@ -656,16 +650,12 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
      * 缩略字符串（替换html）
      * @param str 目标字符串
      * @param length 截取长度
-     * @return
+     * @return      去除html标签后的缩略字符串
      */
     public static String rabbr(String str, int length) {
         return abbr(replaceHtml(str), length);
     }
 
-
-    /**
-     * 转换为Double类型
-     */
     public static Double toDouble(Object val){
         if (val == null){
             return 0D;
@@ -677,23 +667,14 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
         }
     }
 
-    /**
-     * 转换为Float类型
-     */
     public static Float toFloat(Object val){
         return toDouble(val).floatValue();
     }
 
-    /**
-     * 转换为Long类型
-     */
     public static Long toLong(Object val){
         return toDouble(val).longValue();
     }
 
-    /**
-     * 转换为Integer类型
-     */
     public static Integer toInteger(Object val){
         return toLong(val).intValue();
     }

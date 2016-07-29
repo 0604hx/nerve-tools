@@ -12,8 +12,6 @@ import java.security.Key;
 /**
  * DES对称加密/解密工具类.
  * <br>加密加密字符串采用DEFAULT_CHARSET编码（UTF-8）.
- * @author 尔演&Eryan eryanwcp@gmail.com
- * @date   2011-12-27 上午9:48:31
  */
 public class Encryption {
     /**
@@ -81,7 +79,7 @@ public class Encryption {
 	 * @param arrB
 	 *            需加密的字节数组
 	 * @return 加密后的字节数组
-	 * @throws Exception
+	 * @throws Exception 异常
 	 */
 	public static byte[] encrypt(byte[] arrB) throws Exception {
 		Key key = getKey(strDefaultKey.getBytes());
@@ -96,7 +94,7 @@ public class Encryption {
 	 * @param strIn
 	 *            需加密的字符串
 	 * @return 加密后的字符串
-	 * @throws Exception
+	 * @throws Exception  异常
 	 */
 	public static String encrypt(String strIn) throws Exception {
 //		return byteArr2HexStr(encrypt(strIn.getBytes()));
@@ -109,7 +107,7 @@ public class Encryption {
 	 * @param arrB
 	 *            需解密的字节数组
 	 * @return 解密后的字节数组
-	 * @throws Exception
+	 * @throws Exception  异常
 	 */
 	public static byte[] decrypt(byte[] arrB) throws Exception {
 		Key key = getKey(strDefaultKey.getBytes());
@@ -124,7 +122,7 @@ public class Encryption {
 	 * @param strIn
 	 *            需解密的字符串
 	 * @return 解密后的字符串
-	 * @throws Exception
+	 * @throws Exception  异常
 	 */
 	public static String decrypt(String strIn) throws Exception {
 		return new String(decrypt(hexStr2ByteArr(strIn)), DEFAULT_CHARSET);
@@ -136,7 +134,7 @@ public class Encryption {
 	 * @param arrBTmp
 	 *            构成该字符串的字节数组
 	 * @return 生成的密钥
-	 * @throws Exception
+	 * @throws Exception  异常
 	 */
 	private static Key getKey(byte[] arrBTmp) throws Exception {
 		// 创建一个空的8位字节数组（默认值为0）

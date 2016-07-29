@@ -8,9 +8,7 @@ import java.util.List;
 
 /**
  * 列表List工具类，用于实现一些list的常用操作
- * 
- * @author 尔演&Eryan eryanwcp@gmail.com
- * @date 2011-7-22 上午12:37:10
+ *  2011-7-22 上午12:37:10
  */
 public class ListUtils {
 
@@ -19,7 +17,7 @@ public class ListUtils {
     /**
      * 判断list是否为空或大小为0
      * 
-     * @param sourceList
+     * @param sourceList        原List
      * @return 若list为null或长度为0, 返回true; 否则返回false.
      * 
      * <pre>
@@ -35,7 +33,7 @@ public class ListUtils {
     /**
      * 将list中所有元素以默认分隔符拼接返回，默认分隔符为","
      * 
-     * @param list
+     * @param list      List
      * @return list中所有元素以默认分隔符拼接返回。若list为空或长度为0返回""
      * 
      * <pre>
@@ -51,8 +49,8 @@ public class ListUtils {
     /**
      * 将list中所有元素以separator分隔符拼接返回
      * 
-     * @param list
-     * @param separator
+     * @param list      List
+     * @param separator 连接符
      * @return list中所有元素以separator分隔符拼接返回。若list为空或长度为0返回""
      * 
      * <pre>
@@ -69,8 +67,8 @@ public class ListUtils {
     /**
      * 将list中所有元素以separator分隔符拼接返回，separator为空则采用默认分隔符","
      * 
-     * @param list
-     * @param separator
+     * @param list          List
+     * @param separator     连接符
      * @return list中所有元素以separator分隔符拼接返回。若list为空或长度为0返回""
      * 
      * <pre>
@@ -105,9 +103,9 @@ public class ListUtils {
     /**
      * 向sourceList中新增不重复元素
      * 
-     * @param <V>
-     * @param sourceList
-     * @param entry
+     * @param <V>           类型
+     * @param sourceList    List
+     * @param entry         将要被新增的元素
      * @return 若entry在sourceList已经存在，返回false；否则新增并返回true 注意此函数不能保证源sourceList中元素不重复。
      */
     public static <V> boolean addDistinctEntry(List<V> sourceList, V entry) {
@@ -117,9 +115,9 @@ public class ListUtils {
     /**
      * 向sourceList中插入包含在entryList而不包含在sourceList中的元素
      * 
-     * @param <V>
-     * @param sourceList
-     * @param entryList
+     * @param <V>               类型
+     * @param sourceList        List
+     * @param entryList         将要被新增的集合
      * @return 像sourceList插入的元素个数 注意此函数不能保证源sourceList中元素不重复。
      */
     public static <V> int addDistinctList(List<V> sourceList, List<V> entryList) {
@@ -139,8 +137,8 @@ public class ListUtils {
     /**
      * 去除list中重复的元素
      * 
-     * @param <V>
-     * @param sourceList
+     * @param <V>               类型
+     * @param sourceList        List
      * @return 去除元素的个数
      */
     public static <V> int distinctList(List<V> sourceList) {
@@ -169,8 +167,9 @@ public class ListUtils {
     /**
      * 向list中新增value
      * 
-     * @param sourceList
-     * @param value
+     * @param sourceList        List
+     * @param value             新增内容
+     * @param <V>               泛型
      * @return 若add成功，返回true，否则返回false
      *         <ul>
      *         <li>若sourceList为null，返回false</li>
@@ -183,18 +182,12 @@ public class ListUtils {
         return (sourceList != null && value != null) ? sourceList.add(value) : false;
     }
 
-    /**
-     * 参考{@link ArrayUtils#getLast(Object[], Object, Object, boolean)} defaultValue为null, isCircle为true
-     */
-    @SuppressWarnings("unchecked")
+    //参考{@link ArrayUtils#getLast(Object[], Object, Object, boolean)} defaultValue为null, isCircle为true
     public static <V> V getLast(List<V> sourceList, V value) {
         return (V)ArrayUtils.getLast(sourceList.toArray(), value, true);
     }
 
-    /**
-     * 参考{@link ArrayUtils#getNext(Object[], Object, Object, boolean)} defaultValue为null, isCircle为true
-     */
-    @SuppressWarnings("unchecked")
+    //参考{@link ArrayUtils#getNext(Object[], Object, Object, boolean)} defaultValue为null, isCircle为true
     public static <V> V getNext(List<V> sourceList, V value) {
         return (V)ArrayUtils.getNext(sourceList.toArray(), value, true);
     }

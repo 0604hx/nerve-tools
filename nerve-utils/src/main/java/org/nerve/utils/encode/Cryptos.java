@@ -21,8 +21,6 @@ import java.util.Arrays;
  * 支持HMAC-SHA1消息签名 及 DES/AES对称加密的工具类.
  * 
  * 支持Hex与Base64两种编码方式.
- * 
- * @author 尔演&Eryan eryanwcp@gmail.com
  */
 public class Cryptos {
 
@@ -42,6 +40,7 @@ public class Cryptos {
      * 
      * @param input 原始输入字符数组
      * @param key HMAC-SHA1密钥
+     * @return byte[]
      */
     public static byte[] hmacSha1(byte[] input, byte[] key) {
         try {
@@ -60,6 +59,7 @@ public class Cryptos {
      * @param expected 已存在的签名
      * @param input 原始输入字符串
      * @param key 密钥
+     * @return boolean
      */
     public static boolean isMacValid(byte[] expected, byte[] input, byte[] key) {
         byte[] actual = hmacSha1(input, key);
@@ -69,6 +69,7 @@ public class Cryptos {
     /**
      * 生成HMAC-SHA1密钥,返回字节数组,长度为160位(20字节).
      * HMAC-SHA1算法对密钥无特殊要求, RFC2401建议最少长度为160位(20字节).
+     * @return  byte[]
      */
     public static byte[] generateHmacSha1Key() {
         try {
@@ -87,6 +88,7 @@ public class Cryptos {
      * 
      * @param input 原始输入字符数组
      * @param key 符合AES要求的密钥
+     * @return  byte[]
      */
     public static byte[] aesEncrypt(byte[] input, byte[] key) {
         return aes(input, key, Cipher.ENCRYPT_MODE);
@@ -98,6 +100,7 @@ public class Cryptos {
      * @param input 原始输入字符数组
      * @param key 符合AES要求的密钥
      * @param iv 初始向量
+     *           @return  byte[]
      */
     public static byte[] aesEncrypt(byte[] input, byte[] key, byte[] iv) {
         return aes(input, key, iv, Cipher.ENCRYPT_MODE);
@@ -108,6 +111,7 @@ public class Cryptos {
      * 
      * @param input Hex编码的加密字符串
      * @param key 符合AES要求的密钥
+     *            @return  String
      */
     public static String aesDecrypt(byte[] input, byte[] key) {
         byte[] decryptResult = aes(input, key, Cipher.DECRYPT_MODE);
@@ -120,6 +124,7 @@ public class Cryptos {
      * @param input Hex编码的加密字符串
      * @param key 符合AES要求的密钥
      * @param iv 初始向量
+     *           @return  String
      */
     public static String aesDecrypt(byte[] input, byte[] key, byte[] iv) {
         byte[] decryptResult = aes(input, key, iv, Cipher.DECRYPT_MODE);
@@ -132,6 +137,7 @@ public class Cryptos {
      * @param input 原始字节数组
      * @param key 符合AES要求的密钥
      * @param mode Cipher.ENCRYPT_MODE 或 Cipher.DECRYPT_MODE
+     *             @return  byte[]
      */
     private static byte[] aes(byte[] input, byte[] key, int mode) {
         try {
@@ -151,6 +157,7 @@ public class Cryptos {
      * @param key 符合AES要求的密钥
      * @param iv 初始向量
      * @param mode Cipher.ENCRYPT_MODE 或 Cipher.DECRYPT_MODE
+     *             @return  byte[]
      */
     private static byte[] aes(byte[] input, byte[] key, byte[] iv, int mode) {
         try {

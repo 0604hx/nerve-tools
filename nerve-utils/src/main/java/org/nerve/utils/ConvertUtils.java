@@ -13,8 +13,6 @@ import java.util.*;
 
 /**
  * 转换工具类.
- * @author 尔演&Eryan eryanwcp@gmail.com
- * @date   2012-9-5 上午11:12:27
  */
 public class ConvertUtils extends org.apache.commons.beanutils.ConvertUtils{
 

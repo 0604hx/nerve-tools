@@ -2,17 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.github.0604hx</groupId>
+        <artifactId>nerve-scala</artifactId>
+        <version>1.1</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.0604hx</groupId>
-    <artifactId>nerve-utils</artifactId>
-    <version>1.0.3</version>
+    <artifactId>nerve-spring-web</artifactId>
+    <version>1.0</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <url>https://github.com/0604hx/nerve-tools</url>
-    <description>
-        常用工具集
-    </description>
+    <description>基于Spring-boot的web快速开发组件，提供了可以继承的通用Controller</description>
 
     <licenses>
         <license>
@@ -50,33 +53,43 @@
     </distributionManagement>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
-        <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
-
-        <commons-beanutils.version>1.9.2</commons-beanutils.version>
-        <commons-lang3.version>3.4</commons-lang3.version>
-        <commons-codec.version>1.10</commons-codec.version>
+        <spring.boot.version>1.3.5.RELEASE</spring.boot.version>
+        <fastjson.version>1.2.11</fastjson.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
+            <groupId>com.github.0604hx</groupId>
+            <artifactId>nerve-spring-repository-mongo</artifactId>
+            <version>1.0</version>
         </dependency>
 
         <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>${commons-beanutils.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>${commons-codec.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
     </dependencies>
 

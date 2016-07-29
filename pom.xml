@@ -14,6 +14,9 @@
         <module>nerve-fs</module>
         <module>nerve-utils</module>
         <module>country2location</module>
+        <module>nerve-spring-repository-mongo</module>
+        <module>nerve-scala</module>
+        <module>nerve-spring-web</module>
     </modules>
 
 

@@ -13,44 +13,19 @@ import java.security.NoSuchAlgorithmException;
  * 加密工具类.
  * <br>md5加密 32位
  * <br>sha加密 40位
- * @author 尔演&Eryan eryanwcp@gmail.com
- * @date   2012-12-11 上午10:32:05
  */
 public class Encrypt {
 
 	/**
-	 * 测试
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) throws Exception {
-		// md5加密测试
-		String md5_1 = md5("123456");
-		System.out.println(md5_1 );
-		// sha加密测试
-		String sha_1 = sha("123456");
-		System.out.println(sha_1);
-		System.out.println(md5AndSha("123456"));
-
-		System.out.println(Encryption.encrypt("123456"));
-		System.out.println(Encryption.decrypt("caecf0971feb5f0d"));
-	}
-
-	/**
 	 * 加密
 	 * 
-	 * @param inputText
-	 * @return
+	 * @param inputText 输入
+	 * @return          输出
 	 */
 	public static String e(String inputText) {
 		return md5(inputText);
 	}
 
-	/**
-	 *
-	 * @param inputText
-	 * @return
-	 */
 	public static String md5AndSha(String inputText) {
 		return sha(md5(inputText));
 	}
@@ -58,8 +33,8 @@ public class Encrypt {
 	/**
 	 * md5加密
 	 * 
-	 * @param inputText
-	 * @return
+	 * @param inputText 输入
+	 * @return          输出
 	 */
 	public static String md5(String inputText) {
 		return encrypt(inputText, "md5");
@@ -68,8 +43,8 @@ public class Encrypt {
 	/**
 	 * sha加密
 	 * 
-	 * @param inputText
-	 * @return
+	 * @param inputText 输入
+	 * @return          输出
 	 */
 	public static String sha(String inputText) {
 		return encrypt(inputText, "sha-1");
@@ -82,7 +57,7 @@ public class Encrypt {
 	 *            要加密的内容
 	 * @param algorithmName
 	 *            加密算法名称：md5或者sha-1，不区分大小写
-	 * @return
+	 * @return    加密后的内容
 	 */
 	private static String encrypt(String inputText, String algorithmName) {
 		if (inputText == null || "".equals(inputText.trim())) {
@@ -110,8 +85,8 @@ public class Encrypt {
 	/**
 	 * 返回十六进制字符串
 	 * 
-	 * @param arr
-	 * @return
+	 * @param arr   输入
+	 * @return      输出
 	 */
 	private static String hex(byte[] arr) {
 		StringBuffer sb = new StringBuffer();

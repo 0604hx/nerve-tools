@@ -17,8 +17,6 @@ import java.util.Map;
 
 /**
  * MyBeanUtils.
- * @author 尔演&Eryan eryanwcp@gmail.com
- * @date  2013-1-19 下午4:36:03
  */
 public class MyBeanUtils
     extends org.apache.commons.beanutils.BeanUtils {
@@ -104,9 +102,9 @@ public class MyBeanUtils
 	 * 对象拷贝
 	 * 数据对象空值不拷贝到目标对象
 	 * 
-	 * @param databean
-	 * @param tobean
-	 * @throws NoSuchMethodException
+	 * @param databean      源对象
+	 * @param tobean        目标对象
+	 * @throws NoSuchMethodException  异常
 	 * copy
 	 */
   public static void copyBeanNotNull2Bean(Object databean,Object tobean)throws Exception
@@ -141,10 +139,10 @@ public class MyBeanUtils
   
   /**
    * 把orig和dest相同属性的value复制到dest中
-   * @param dest
-   * @param orig
-   * @throws IllegalAccessException
-   * @throws InvocationTargetException
+   * @param dest    dest
+   * @param orig    orig
+   * @throws IllegalAccessException  异常
+   * @throws InvocationTargetException  异常
    */
   public static void copyBean2Bean(Object dest, Object orig) throws Exception {
       convert(dest, orig);
@@ -173,8 +171,8 @@ public class MyBeanUtils
    * 将Map内的key与Bean中属性相同的内容复制到BEAN中
    * @param bean Object
    * @param properties Map
-   * @throws IllegalAccessException
-   * @throws InvocationTargetException
+   * @throws IllegalAccessException  异常
+   * @throws InvocationTargetException  异常
    */
   public static void copyMap2Bean(Object bean, Map properties) throws
       IllegalAccessException, InvocationTargetException {
@@ -216,8 +214,8 @@ public class MyBeanUtils
    * 将Map内的key与Bean中属性相同的内容复制到BEAN中
    * @param bean Object
    * @param properties Map
-   * @throws IllegalAccessException
-   * @throws InvocationTargetException
+   * @throws IllegalAccessException  异常
+   * @throws InvocationTargetException  异常
    */
   public static void copyMap2Bean_Nobig(Object bean, Map properties) throws
       IllegalAccessException, InvocationTargetException {
@@ -260,8 +258,8 @@ public class MyBeanUtils
    * @param bean Object
    * @param properties Map
    * @param defaultValue String
-   * @throws IllegalAccessException
-   * @throws InvocationTargetException
+   * @throws IllegalAccessException 异常
+   * @throws InvocationTargetException  异常
    */
   public static void copyMap2Bean(Object bean, Map properties, String defaultValue) throws
       IllegalAccessException, InvocationTargetException {

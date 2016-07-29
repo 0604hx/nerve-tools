@@ -16,8 +16,6 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * MD5工具类.
- * @author 尔演&Eryan eryanwcp@gmail.com
- * @date   2012-1-9下午3:15:25
  */
 public class MD5Util {    
      /**  
@@ -34,10 +32,9 @@ public class MD5Util {
     }    
     /**
      * 获取文件MD5值
-     * @param file
-     * @return
-     * @throws IOException
-     * @date   2012-1-9下午3:15:43
+     * @param file  File
+     * @return  md5
+     * @throws IOException  异常
      */
     public static String getFileMD5String(File file) throws IOException {    
         InputStream fis;    
@@ -53,9 +50,8 @@ public class MD5Util {
       
     /**
      * 密码字符串MD5加密 32位小写
-     * @param str
-     * @return
-     * @date   2012-1-9下午3:16:04
+     * @param str   string
+     * @return      md5
      */
     public static String getStringMD5(String str){  
     	if(StringUtils.isEmpty(str)){

@@ -12,8 +12,6 @@ import java.io.ObjectOutputStream;
 
 /**
  * Object工具类
- * @author 尔演&Eryan eryanwcp@gmail.com
- * @date   2012-1-9下午2:44:48
  */
 public class ObjectUtils {
 
@@ -22,7 +20,7 @@ public class ObjectUtils {
      * 
      * @param actual
      * @param expected
-     * @return
+     * @return  boolean
      *         <ul>
      *         <li>若两个对象都为null，则返回true</li>
      *         <li>若两个对象都不为null，且相等，则返回true</li>
