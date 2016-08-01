@@ -8,10 +8,9 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.URLConnection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 使用global.bing.com来进行查询
@@ -29,7 +28,7 @@ public class Ip2DomainByGlobalBingSearch extends Ip2DomainFromUrl {
 		cookies.put("_EDGE_S","mkt=en-us&ui=en-us&F=1&SID=0F884792FDDB6BAB12F64EB3FC076AAA");
 		cookies.put("_EDGE_V","1");
 	}
-	protected String searchUrl="http://global.bing.com/search?q=ip:%s";
+	protected String searchUrl="http://global.bing.com/search?q=%s";
 
 	@Override
 	public Set<String> lookup(String ip) {
@@ -37,11 +36,24 @@ public class Ip2DomainByGlobalBingSearch extends Ip2DomainFromUrl {
 			throw new IllegalArgumentException("urlSelector must be setup!see @setUrlSelector");
 		Set<String> urls=new HashSet<>();
 		try{
-			getResponse(String.format(searchUrl, ip), response->{
+			getResponse(String.format(searchUrl, "ip:"+ip), response->{
 				Document document=Jsoup.parse(response);
 				Elements elements=document.select(urlSelector);
 				elements.forEach(e-> urls.add(e.attr("href")+" "+e.text()));
 			});
+
+			//如果通过搜索关键字："ip:xxx.xx.x.x"无法得到结果，则直接搜索“xxx.xx.x.x"
+			if(urls.size()==0){
+				getResponse(String.format(searchUrl, ip), response->{
+					Document document=Jsoup.parse(response);
+					Elements elements=document.select(urlSelector);
+					elements.forEach(e-> {
+						String href=e.attr("href");
+						if(!href.contains(ip))
+							urls.add(e.text()+" "+href);
+					});
+				});
+			}
 		}catch (Exception e){
 			e.printStackTrace();
 		}

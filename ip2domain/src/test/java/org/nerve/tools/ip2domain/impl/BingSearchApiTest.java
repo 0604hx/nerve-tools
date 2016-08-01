@@ -26,6 +26,7 @@ public class BingSearchApiTest {
 	public void searchWithGlobal(){
 		Ip2DomainByGlobalBingSearch api=new Ip2DomainByGlobalBingSearch();
 
+		System.out.println(api.lookup("207.223.241.72"));
 		System.out.println(api.lookup("125.39.240.113"));
 		System.out.println(api.lookup("14.215.177.37"));
 		System.out.println(api.lookup("180.97.164.26"));
