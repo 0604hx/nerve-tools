@@ -21,6 +21,8 @@ public abstract class AbstractHttpIp2Domain extends AbstractIp2Domain {
 	protected int readTimeout=10000;
 	protected int connectSleepTime=1000;
 
+	private String responseBody;
+
 	@Override
 	public void setProxy(String host, int port) {
 		this.proxyHost=host;
@@ -88,17 +90,26 @@ public abstract class AbstractHttpIp2Domain extends AbstractIp2Domain {
 			e.printStackTrace();
 		}
 
-		try (final BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+		try (final BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), getEncoding()))) {
 			String inputLine;
 			final StringBuilder response = new StringBuilder();
 			while ((inputLine = in.readLine()) != null) {
 				response.append(inputLine);
 			}
 
-			consumer.accept(response.toString());
+			responseBody = response.toString();
+			consumer.accept(responseBody);
 		}catch (Exception e){
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * 获取http请求的html结果
+	 * @return
+	 */
+	public String getResponseBody() {
+		return responseBody;
 	}
 
 	/**
@@ -107,5 +118,13 @@ public abstract class AbstractHttpIp2Domain extends AbstractIp2Domain {
 	 */
 	protected void onConnectionOpen(URLConnection connection){
 
+	}
+
+	/**
+	 * 解析HttpResponse的编码，默认是utf-8
+	 * @return  default to utf-8
+	 */
+	protected String getEncoding(){
+		return "utf-8";
 	}
 }

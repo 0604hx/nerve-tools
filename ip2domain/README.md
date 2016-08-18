@@ -27,3 +27,7 @@ JDK 8+ 		for lamda
 
 ## v 1.4.1
 1. 修复无法通过global获取到域名信息的BUG
+
+## v 1.4.2
+1. 修复中文乱码问题（org.nerve.tools.ip2domain.impl.AbstractHttpIp2Domain 增加 getEncoding()方法）
+2. org.nerve.tools.ip2domain.impl.AbstractHttpIp2Domain 增加 getResponseBody()方法，可以得到html结果
